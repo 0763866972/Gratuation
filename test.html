@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời Tốt Nghiệp - Phan Gia An</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        cursive: ['"Dancing Script"', 'cursive']
+                    },
+                    colors: {
+                        gold: '#d4af37',
+                        darkgold: '#8c6200',
+                        cream: '#fdfbf7'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- WOW Effects Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/index.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --font-cursive: 'Dancing Script', cursive;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --color-gold: #d4af37;
+            --color-cream: #fdfbf7;
+        }
+
+        body {
+            /* Nền Sáng: Lễ Tốt Nghiệp với lớp overlay trắng/kem sang trọng */
+            background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(255, 255, 255, 0.95)),
+                url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');
+            background-size: 150% 150%;
+            background-attachment: fixed;
+            animation: panBackground 120s linear infinite alternate;
+            font-family: var(--font-sans);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            perspective: 1500px;
+        }
+
+        @keyframes panBackground {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* --- SAO BĂNG VÀNG (Gold Shooting Stars) --- */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shooting-star {
+            --star-color: 212, 175, 55;
+            /* Default Gold rgb */
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(-45deg, rgba(var(--star-color), 1), rgba(var(--star-color), 0));
+            border-radius: 999px;
+            filter: drop-shadow(0 0 8px rgba(var(--star-color), 0.8));
+            animation: tail 4s ease-in-out infinite, shooting 4s ease-in-out infinite;
+        }
+
+        .shooting-star::before,
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: calc(50% - 1px);
+            right: 0;
+            height: 2px;
+            background: linear-gradient(-45deg, rgba(var(--star-color), 0), rgba(var(--star-color), 1), rgba(var(--star-color), 0));
+            border-radius: 100%;
+            animation: shining 4s ease-in-out infinite;
+        }
+
+        .shooting-star::before {
+            transform: translateX(50%) rotateZ(45deg);
+        }
+
+        .shooting-star::after {
+            transform: translateX(50%) rotateZ(-45deg);
+        }
+
+        @keyframes tail {
+            0% {
+                width: 0;
+            }
+
+            30% {
+                width: 120px;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        @keyframes shining {
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 30px;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        @keyframes shooting {
+            0% {
+                transform: rotate(45deg) translateX(-100px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: rotate(45deg) translateX(1200px);
+                opacity: 0;
+            }
+        }
+
+        .star-1 {
+            top: 5%;
+            left: 10%;
+            animation-delay: 0s;
+            --star-color: 212, 175, 55;
+        }
+
+        /* Gold */
+        .star-2 {
+            top: 25%;
+            left: -10%;
+            animation-delay: 2.2s;
+            --star-color: 255, 10, 84;
+        }
+
+        /* Pink/Red */
+        .star-3 {
+            top: -10%;
+            left: 40%;
+            animation-delay: 4.5s;
+            --star-color: 0, 255, 255;
+        }
+
+        /* Cyan */
+        .star-4 {
+            top: 40%;
+            left: -20%;
+            animation-delay: 1.5s;
+            --star-color: 148, 0, 211;
+        }
+
+        /* Purple */
+        .star-5 {
+            top: -20%;
+            left: 70%;
+            animation-delay: 3.8s;
+            --star-color: 255, 255, 255;
+        }
+
+        /* White */
+        .star-6 {
+            top: 15%;
+            left: -30%;
+            animation-delay: 5.7s;
+            --star-color: 0, 255, 100;
+        }
+
+        /* Bright Green */
+
+        /* Fireworks layer */
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* --- THE NEW LIGHT CARD --- */
+        @keyframes cardLightPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1), 0 0 40px rgba(212, 175, 55, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1), 0 10px 80px rgba(212, 175, 55, 0.8), 0 30px 100px rgba(252, 233, 159, 0.5);
+            }
+        }
+
+        .invitation-card {
+            width: 100%;
+            max-width: 950px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1), 0 0 40px rgba(212, 175, 55, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transform-style: preserve-3d;
+            transition: box-shadow 1s ease-out;
+        }
+
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: radial-gradient(circle 300px at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(212, 175, 55, 1), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .invitation-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-light-bright {
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1), 0 10px 80px rgba(212, 175, 55, 1), 0 30px 120px rgba(252, 233, 159, 0.8) !important;
+        }
+
+        .card-light-pulse {
+            animation: cardLightPulse 3s infinite ease-in-out;
+        }
+
+        @media (min-width: 800px) {
+            .invitation-card {
+                flex-direction: row;
+                min-height: 520px;
+            }
+        }
+
+        /* --- PANELS --- */
+        .left-panel {
+            background: linear-gradient(145deg, #ffffff 0%, #fef8e6 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .left-panel::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .right-panel {
+            background: linear-gradient(120deg, #ffffff 0%, #fdfbf7 50%, #fcfaf2 100%);
+            position: relative;
+            overflow: hidden;
+            /* Giữ watermark không bị tràn */
+        }
+
+        .right-panel::before {
+            content: '';
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background-image: url('./Logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.06;
+            /* Độ mờ lý tưởng cho watermark */
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- UTILITIES --- */
+        .gold-gradient-text {
+            background: linear-gradient(110deg, #c59b27 0%, #fce99f 40%, #8c6200 60%, #c59b27 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes fadeUpCinematic {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+                filter: blur(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .animate-fade-up {
+            animation: fadeUpCinematic 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes sweepGlowDown {
+            0% {
+                background-position: 0% 100%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .quote-glow-sweep {
+            background: linear-gradient(to bottom,
+                    #334155 0%,
+                    #334155 42%,
+                    #c59b27 47%,
+                    #fce99f 50%,
+                    #c59b27 53%,
+                    #334155 58%,
+                    #334155 100%);
+            background-size: 100% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-position: 0% 100%;
+            animation: sweepGlowDown 10s linear 1.5s forwards;
+        }
+
+        .pop-out {
+            transform: translateZ(30px);
+        }
+
+        .pop-out-max {
+            transform: translateZ(50px);
+        }
+
+        @keyframes floatAnim {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .float-anim {
+            animation: floatAnim 4s ease-in-out infinite;
+        }
+
+        .quote-marks::before {
+            content: '"';
+            font-size: 5rem;
+            position: absolute;
+            top: -35px;
+            left: -15px;
+            color: rgba(212, 175, 55, 0.25);
+            font-family: var(--font-serif);
+            pointer-events: none;
+        }
+
+        /* --- Tương tác (Interactive Elements) --- */
+        .cursor-sparkle {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, #fce99f, #d4af37);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            pointer-events: none;
+            animation: sparkleAnim 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            z-index: 9999;
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, calc(-50% + 30px)) scale(1.5) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        .name-interactive {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .name-interactive:hover {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            transform: scale(1.05);
+        }
+
+        .monkey-interactive {
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .monkey-interactive:hover {
+            transform: scale(1.3) rotate(15deg);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Màn hình chờ (Light Theme) -->
+    <div id="welcome-overlay"
+        class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white/70 backdrop-blur-md transition-opacity duration-1000 overflow-hidden">
+
+        <!-- Họa tiết góc (Corners) -->
+        <div
+            class="absolute top-8 left-8 w-16 md:w-32 h-16 md:h-32 border-t-[3px] border-l-[3px] border-[#d4af37] opacity-50 rounded-tl-2xl">
+        </div>
+        <div
+            class="absolute bottom-8 right-8 w-16 md:w-32 h-16 md:h-32 border-b-[3px] border-r-[3px] border-[#d4af37] opacity-50 rounded-br-2xl">
+        </div>
+        <div
+            class="absolute top-8 right-8 w-16 md:w-32 h-16 md:h-32 border-t-[3px] border-r-[3px] border-[#d4af37] opacity-50 rounded-tr-2xl">
+        </div>
+        <div
+            class="absolute bottom-8 left-8 w-16 md:w-32 h-16 md:h-32 border-b-[3px] border-l-[3px] border-[#d4af37] opacity-50 rounded-bl-2xl">
+        </div>
+
+        <!-- Chữ watermark khổng lồ chìm ở background -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03]">
+            <span
+                class="font-cursive text-[8rem] md:text-[18rem] text-[#8c6200] whitespace-nowrap -rotate-12 select-none">Invitation</span>
+        </div>
+
+        <div class="text-center animate-fade-up relative z-10 flex flex-col items-center"
+            style="animation-duration: 2s;">
+
+            <div class="relative mb-12 group cursor-pointer">
+                <!-- Vòng sóng âm (Ripple effect) -->
+                <div
+                    class="absolute inset-0 border-2 border-[#d4af37] rounded-full animate-[ping_2s_ease-in-out_infinite] opacity-40">
+                </div>
+                <div
+                    class="absolute inset-0 border-2 border-[#fce99f] rounded-full animate-[ping_2.5s_ease-in-out_infinite_0.5s] opacity-20">
+                </div>
+
+                <!-- Icon phong bì / Con dấu sáp (Wax Seal style) -->
+                <div
+                    class="w-20 h-20 md:w-28 md:h-28 mx-auto bg-gradient-to-br from-[#fce99f] to-[#c59b27] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.5)] relative z-10 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-[10deg]">
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.2"
+                        stroke-linecap="round" stroke-linejoin="round" class="md:w-[55px] md:h-[55px]">
+                        <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"></path>
+                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    </svg>
+                </div>
+            </div>
+
+            <button id="open-btn"
+                class="relative overflow-hidden group px-10 md:px-14 py-4 md:py-5 bg-white border border-[#d4af37] rounded-full uppercase tracking-[0.2em] transition-all duration-500 shadow-[0_15px_30px_rgba(212,175,55,0.15)] hover:shadow-[0_20px_40px_rgba(212,175,55,0.4)] hover:-translate-y-1 hover:border-transparent">
+                <!-- Nền Hover Shimmer -->
+                <div
+                    class="absolute inset-0 w-full h-full bg-gradient-to-r from-[#d4af37] via-[#fce99f] to-[#d4af37] bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+                <span
+                    class="relative z-10 text-[#8c6200] font-sans font-bold text-[0.8rem] md:text-[0.9rem] group-hover:text-white transition-colors duration-300">Mở
+                    Thiệp</span>
+            </button>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="piano.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="stars-container">
+        <div class="shooting-star star-1"></div>
+        <div class="shooting-star star-2"></div>
+        <div class="shooting-star star-3"></div>
+        <div class="shooting-star star-4"></div>
+        <div class="shooting-star star-5"></div>
+        <div class="shooting-star star-6"></div>
+    </div>
+
+    <div class="fireworks-container"></div>
+
+    <!-- Nút Bật/Tắt Âm Thanh -->
+    <button id="mute-btn"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white/90 px-5 py-3.5 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.2)] hover:bg-white hover:scale-105 transition-all duration-300 hidden border border-[#d4af37]/30">
+        <svg id="icon-unmute" class="w-5 h-5 text-[#8c6200]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 14h3.586a2 2 0 001.414-.586l4-4v6.172l-4-4A2 2 0 008.586 10H5v4z">
+            </path>
+        </svg>
+        <svg id="icon-mute" class="w-5 h-5 text-slate-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z">
+            </path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+        </svg>
+        <span id="mute-text" class="font-sans font-bold text-[0.7rem] text-[#8c6200] tracking-wider uppercase">Tắt
+            Nhạc</span>
+    </button>
+
+    <div id="invitation-card" class="invitation-card animate-fade-up hidden relative" data-tilt data-tilt-max="8"
+        data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3" data-tilt-scale="1.04"
+        style="animation-duration: 1.5s;">
+
+        <!-- ================= LEFT PANEL (Light) ================= -->
+        <div class="left-panel w-full md:w-[45%] p-10 md:p-12 pop-out">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="bg-white p-2 rounded-full w-[65px] h-[65px] flex items-center justify-center shadow-md shrink-0 z-10 border border-[#d4af37]/30">
+                    <img src="./Logo.png" alt="HCMUTE Logo" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="flex flex-col items-center text-center z-10">
+                    <span
+                        class="font-sans font-bold text-slate-800 text-[0.65rem] md:text-[0.75rem] tracking-widest uppercase">Ho
+                        Chi Minh City University</span>
+                    <span
+                        class="font-sans text-[#8c6200] font-semibold text-[0.55rem] md:text-[0.6rem] tracking-widest uppercase mt-1">of
+                        Technology and Education</span>
+                </div>
+            </div>
+
+            <div class="relative mt-auto mb-auto z-10 pl-2">
+                <div class="quote-marks relative">
+                    <p class="font-serif italic text-[0.95rem] md:text-[1.15rem] leading-loose quote-glow-sweep">
+                        "Mỗi hành trình đều có một điểm son để nhìn lại và biết ơn. Lễ tốt nghiệp không chỉ đánh dấu sự
+                        trưởng thành mà còn là dịp để tri ân những người đã luôn yêu thương và đồng hành. Trong niềm
+                        hạnh phúc và biết ơn sâu sắc, rất hân hạnh được đón tiếp quý cô chú, anh chị, bạn bè và người
+                        thân đến tham dự lễ tốt nghiệp, cùng chia sẻ niềm vui và đánh dấu cột mốc ý nghĩa này."
+                    </p>
+                    <div class="w-16 h-[2px] bg-[#d4af37] mt-8 opacity-60"></div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-[#d4af37]/30 flex items-center justify-end gap-4 z-10 w-full">
+                <div
+                    class="bg-white p-1.5 rounded-full w-[60px] h-[60px] flex items-center justify-center shadow-sm shrink-0 border border-[#d4af37]/30">
+                    <img src="./PGA.png" alt="PGA" class="max-h-full max-w-full object-contain rounded-full">
+                </div>
+                <div class="flex flex-col justify-center text-left">
+                    <span class="font-cursive text-3xl text-[#8c6200] leading-none mb-1">Phan Gia An</span>
+                    <span class="font-sans tracking-widest text-[0.6rem] uppercase text-slate-500 font-semibold">Class
+                        of 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= RIGHT PANEL (Light) ================= -->
+        <div
+            class="right-panel w-full md:w-[55%] p-8 md:p-12 flex flex-col justify-center items-center text-center pop-out">
+
+            <p class="font-serif italic font-bold text-slate-500 text-[1.1rem] mb-2 tracking-wide">You are joyfully
+                invited to the</p>
+            <h1
+                class="font-serif font-bold text-[#8c6200] text-[1.5rem] md:text-[1.8rem] tracking-[0.2em] uppercase mb-6 drop-shadow-sm">
+                Graduation Ceremony
+            </h1>
+
+            <div class="flex items-center gap-3 mb-5 opacity-40 w-full justify-center">
+                <div class="w-12 md:w-20 h-[1px] bg-slate-800"></div>
+                <div class="w-2 h-2 rotate-45 border border-slate-800"></div>
+                <div class="w-12 md:w-20 h-[1px] bg-slate-800"></div>
+            </div>
+
+            <p class="font-serif italic text-slate-400 mb-2">of</p>
+
+            <div
+                class="pop-out-max w-full flex justify-center items-center gap-2 md:gap-4 float-anim mb-8 mt-2 relative z-20">
+                <svg id="monkey-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="#c59b27" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-9 h-9 opacity-90 -rotate-6 monkey-interactive" title="Lễ Tốt Nghiệp!">
+                    <circle cx="5.5" cy="11.5" r="2.5" fill="#fce99f" fill-opacity="0.5" />
+                    <circle cx="18.5" cy="11.5" r="2.5" fill="#fce99f" fill-opacity="0.5" />
+                    <circle cx="12" cy="11" r="6" fill="#ffffff" fill-opacity="0.9" />
+                    <path d="M 8 13 C 8 10.5 12 10 12 12 C 12 10 16 10.5 16 13 C 16 15 14 17 12 17 C 10 17 8 15 8 13 Z"
+                        fill="#fce99f" fill-opacity="0.6" />
+
+                    <!-- Happy Eyes -->
+                    <path d="M 9.2 12.5 Q 10 11.5 10.8 12.5" stroke-width="1.2" />
+                    <path d="M 13.2 12.5 Q 14 11.5 14.8 12.5" stroke-width="1.2" />
+
+                    <!-- Blush -->
+                    <ellipse cx="9" cy="14" rx="1.2" ry="0.6" fill="#ff0a54" fill-opacity="0.25" stroke="none" />
+                    <ellipse cx="15" cy="14" rx="1.2" ry="0.6" fill="#ff0a54" fill-opacity="0.25" stroke="none" />
+
+                    <!-- Small smile -->
+                    <path d="M 11 14.5 Q 12 15.5 13 14.5 Z" fill="#c59b27" stroke="none" />
+
+                    <!-- Graduation Cap (Tassel on the Left) -->
+                    <polygon points="12,3 7,5.5 12,8 17,5.5" fill="#8c6200" stroke="none" />
+                    <path d="M 8.5 6 V 8.5 Q 12 10 15.5 8.5 V 6 Z" fill="#8c6200" stroke="none" />
+                    <line x1="12" y1="5.5" x2="7.5" y2="7" stroke="#d4af37" stroke-width="1" />
+                    <circle cx="7.5" cy="7.5" r="1.2" fill="#d4af37" stroke="none" />
+                </svg>
+
+                <span id="interactive-name"
+                    class="font-cursive font-bold gold-gradient-text text-[3.2rem] md:text-[4rem] px-2 leading-none drop-shadow-sm whitespace-nowrap name-interactive select-none"
+                    title="Click vào tên mình đi!">
+                    Phan Gia An
+                </span>
+
+                <svg id="monkey-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="#c59b27" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-9 h-9 opacity-90 rotate-6 monkey-interactive" title="Chúc mừng tốt nghiệp!">
+                    <circle cx="5.5" cy="11.5" r="2.5" fill="#fce99f" fill-opacity="0.5" />
+                    <circle cx="18.5" cy="11.5" r="2.5" fill="#fce99f" fill-opacity="0.5" />
+                    <circle cx="12" cy="11" r="6" fill="#ffffff" fill-opacity="0.9" />
+                    <path d="M 8 13 C 8 10.5 12 10 12 10 C 12 10 16 10.5 16 13 C 16 15 14 17 12 17 C 10 17 8 15 8 13 Z"
+                        fill="#fce99f" fill-opacity="0.6" />
+
+                    <!-- Left eye (normal) -->
+                    <line x1="10" y1="12.5" x2="10.01" y2="12.5" stroke-width="2.5" />
+                    <!-- Right eye (winking) -->
+                    <path d="M 13.5 12.5 Q 14 11.5 14.5 12.5" stroke-width="1.2" />
+                    <!-- Mouth (open smile) -->
+                    <path d="M 10.5 14.5 Q 12 16.5 13.5 14.5 Z" fill="#c59b27" stroke="none" />
+
+                    <!-- Graduation Cap -->
+                    <polygon points="12,3 7,5.5 12,8 17,5.5" fill="#8c6200" stroke="none" />
+                    <path d="M 8.5 6 V 8.5 Q 12 10 15.5 8.5 V 6 Z" fill="#8c6200" stroke="none" />
+                    <line x1="12" y1="5.5" x2="16.5" y2="7" stroke="#d4af37" stroke-width="1" />
+                    <circle cx="16.5" cy="7.5" r="1.2" fill="#d4af37" stroke="none" />
+                </svg>
+            </div>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full mt-2 mb-8 bg-[#fef8e6] p-5 rounded-xl border border-[#d4af37]/30 shadow-sm relative overflow-hidden">
+                <div
+                    class="flex flex-col items-center relative z-10 border-b md:border-b-0 md:border-r border-[#d4af37]/30 pb-4 md:pb-0 md:pr-2">
+                    <span
+                        class="text-[#8c6200] font-sans font-bold text-[0.65rem] uppercase tracking-[0.2em] mb-2">When</span>
+                    <span class="font-serif text-slate-800 text-[1.1rem] font-semibold">Sat, 27.06.2026</span>
+                    <span class="font-serif text-slate-600 text-[0.95rem] italic font-medium mt-0.5">2:00 PM - 4:30
+                        PM</span>
+                </div>
+
+                <div class="flex flex-col items-center relative z-10 pt-2 md:pt-0 md:pl-2">
+                    <span
+                        class="text-[#8c6200] font-sans font-bold text-[0.65rem] uppercase tracking-[0.2em] mb-2">Where</span>
+                    <span class="font-serif text-slate-800 text-[1rem] font-semibold leading-tight">HCMUTE</span>
+                    <span
+                        class="font-sans text-slate-600 text-[0.75rem] font-medium mt-1.5 text-center leading-relaxed">Số
+                        1 Võ Văn Ngân<br>TP. Thủ Đức, TP.HCM</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-auto mb-5 relative z-10 w-full opacity-80">
+                <p
+                    class="font-serif italic text-[0.8rem] md:text-[0.9rem] text-[#8c6200] mb-3 tracking-wide text-center whitespace-nowrap">
+                    Niềm vui sẽ trọn vẹn hơn khi có sự hiện diện của bạn</p>
+                <div class="flex items-center gap-2">
+                    <div class="w-12 h-[1px] bg-[#d4af37]"></div>
+                    <div class="w-1.5 h-1.5 rotate-45 border border-[#d4af37]"></div>
+                    <div class="w-12 h-[1px] bg-[#d4af37]"></div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center relative z-10 w-full">
+                <p class="font-serif italic text-slate-500 text-[1.1rem] mb-2 tracking-wide">RSVP / Liên hệ</p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span
+                        class="font-serif text-[#8c6200] text-[1.1rem] hover:scale-105 transition-transform duration-300 cursor-pointer copy-phone drop-shadow-sm"
+                        data-phone="0763866972" title="Nhấn để copy số">076 386 6972 (An)</span>
+                </div>
+                <!-- Thông báo copy -->
+                <div id="copy-toast"
+                    class="absolute -top-6 bg-[#8c6200] text-white px-3 py-1 rounded shadow-md text-[0.55rem] font-bold tracking-widest opacity-0 transition-opacity duration-300 pointer-events-none">
+                    ĐÃ COPY SỐ!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.fireworks-container');
+        const fireworks = new Fireworks.default(container, {
+            autoresize: true,
+            background: 'transparent',
+            opacity: 0.8,
+            acceleration: 1.05,
+            friction: 0.95,
+            gravity: 1.5,
+            particles: 60,
+            traceLength: 3,
+            traceSpeed: 20,
+            explosion: 5,
+            intensity: 15,
+            flickering: 20,
+            lineStyle: 'round',
+            hue: { min: 0, max: 360 },
+            delay: { min: 30, max: 60 },
+            rocketsPoint: { min: 50, max: 50 },
+            lineWidth: { explosion: { min: 1, max: 4 }, trace: { min: 1, max: 2 } },
+            brightness: { min: 50, max: 100 },
+            decay: { min: 0.015, max: 0.03 },
+            mouse: { click: true, move: false, max: 2 }
+        });
+
+        const audio = document.getElementById('bg-music');
+        const muteBtn = document.getElementById('mute-btn');
+        const iconMute = document.getElementById('icon-mute');
+        const iconUnmute = document.getElementById('icon-unmute');
+
+        // Xử lý nút Mute / Unmute
+        muteBtn.addEventListener('click', () => {
+            const muteText = document.getElementById('mute-text');
+            if (audio.muted) {
+                audio.muted = false;
+                iconMute.classList.add('hidden');
+                iconUnmute.classList.remove('hidden');
+                muteText.textContent = 'Tắt Nhạc';
+                muteText.classList.replace('text-slate-500', 'text-[#8c6200]');
+            } else {
+                audio.muted = true;
+                iconMute.classList.remove('hidden');
+                iconUnmute.classList.add('hidden');
+                muteText.textContent = 'Bật Nhạc';
+                muteText.classList.replace('text-[#8c6200]', 'text-slate-500');
+            }
+        });
+
+        document.getElementById('open-btn').addEventListener('click', function () {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.style.opacity = '0';
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+
+                // Hiển thị nút Mute
+                muteBtn.classList.remove('hidden');
+
+                const card = document.getElementById('invitation-card');
+                card.classList.remove('hidden');
+                card.classList.add('flex');
+
+                setTimeout(() => {
+                    // Phát nhạc từ đầu cùng lúc pháo hoa bắn
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.error("Lỗi phát nhạc:", e));
+
+                    fireworks.start();
+
+                    const cardObj = document.getElementById('invitation-card');
+                    cardObj.classList.add('card-light-bright');
+
+                    var duration = 1000;
+
+                    const rainbowColors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3', '#ff0a54', '#d4af37'];
+
+                    const fireConfetti = () => {
+                        confetti({
+                            particleCount: 7,
+                            angle: 60,
+                            spread: 60,
+                            startVelocity: 70,
+                            origin: { x: 0, y: 1 },
+                            colors: rainbowColors,
+                            zIndex: 100,
+                            scalar: 1.5
+                        });
+                        confetti({
+                            particleCount: 7,
+                            angle: 120,
+                            spread: 60,
+                            startVelocity: 70,
+                            origin: { x: 1, y: 1 },
+                            colors: rainbowColors,
+                            zIndex: 100,
+                            scalar: 1.5
+                        });
+                    };
+
+                    // Bắn nhiều đợt liên tục trong 1 giây (cách nhau 100ms để khớp nhạc)
+                    fireConfetti();
+                    const confettiInterval = setInterval(fireConfetti, 100);
+
+                    setTimeout(() => {
+                        clearInterval(confettiInterval);
+                        cardObj.classList.remove('card-light-bright');
+                        cardObj.classList.add('card-light-pulse');
+                    }, duration);
+                }, 1200);
+            }, 800);
+        });
+
+        // 3. Tương tác đặc biệt (Sparkle & Confetti)
+        let lastSparkle = 0;
+
+        // Rơi sao vàng theo con trỏ chuột và viền phát sáng
+        document.addEventListener('mousemove', function (e) {
+            // Chỉ xử lý khi chuột nằm trên thẻ thiệp
+            const cardElement = e.target.closest('#invitation-card');
+            if (!cardElement) return;
+
+            // Cập nhật toạ độ chuột cho viền phát sáng
+            const rect = cardElement.getBoundingClientRect();
+            cardElement.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            cardElement.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+
+            const now = Date.now();
+            if (now - lastSparkle < 50) return; // Tạo sao mỗi 50ms để mượt mà
+            lastSparkle = now;
+
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('cursor-sparkle');
+            // Dùng fixed position với clientX/Y để tránh bị lỗi toạ độ do 3D transform
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.top = e.clientY + 'px';
+
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 800);
+        });
+
+        // Click tên thì nổ pháo giấy nhỏ
+        const nameBtn = document.getElementById('interactive-name');
+        nameBtn.addEventListener('click', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            confetti({
+                particleCount: 40,
+                spread: 100,
+                origin: { x: x, y: y },
+                colors: ['#d4af37', '#fce99f', '#ff0a54', '#00ffff'],
+                zIndex: 100
+            });
+        });
+
+        // Click khỉ thì nổ pháo vàng
+        const monkeys = document.querySelectorAll('.monkey-interactive');
+        monkeys.forEach(monkey => {
+            monkey.addEventListener('click', function (e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                confetti({
+                    particleCount: 40,
+                    spread: 80,
+                    startVelocity: 35,
+                    origin: { x: x, y: y },
+                    colors: ['#d4af37', '#fce99f', '#ff0a54', '#00ffff'],
+                    zIndex: 100
+                });
+            });
+        });
+
+        // 4. Click copy số điện thoại
+        const phoneSpans = document.querySelectorAll('.copy-phone');
+        const toast = document.getElementById('copy-toast');
+        let toastTimeout;
+
+        phoneSpans.forEach(span => {
+            span.addEventListener('click', function () {
+                const phone = this.getAttribute('data-phone');
+                navigator.clipboard.writeText(phone).then(() => {
+                    // Hiện thông báo
+                    toast.style.opacity = '1';
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.style.opacity = '0';
+                    }, 2000);
+
+                    // Nổ pháo giấy nhỏ
+                    const rect = this.getBoundingClientRect();
+                    confetti({
+                        particleCount: 15,
+                        spread: 50,
+                        startVelocity: 25,
+                        origin: {
+                            x: (rect.left + rect.width / 2) / window.innerWidth,
+                            y: rect.top / window.innerHeight
+                        },
+                        colors: ['#d4af37', '#8c6200'],
+                        zIndex: 100
+                    });
+                }).catch(err => console.error("Không thể copy: ", err));
+            });
+        });
+    </script>
+</body>
+
+</html>
