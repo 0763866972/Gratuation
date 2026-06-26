@@ -936,11 +936,6 @@
             if (envelope.classList.contains('is-open')) return;
             envelope.classList.add('is-open');
 
-            // Cực kỳ quan trọng cho Mobile (iPhone/Android):
-            // Phải gọi play() ngay lập tức trong hàm click, không được để trong setTimeout
-            audio.currentTime = 0;
-            audio.play().catch(e => console.error("Lỗi phát nhạc:", e));
-
             // Đợi hiệu ứng mở phong bì xong (khoảng 1.5s) rồi mới ẩn màn hình chờ
             setTimeout(() => {
                 const overlay = document.getElementById('welcome-overlay');
@@ -957,6 +952,10 @@
                 card.classList.add('flex');
 
                 setTimeout(() => {
+                    // Phát nhạc từ đầu cùng lúc pháo hoa bắn
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.error("Lỗi phát nhạc:", e));
+
                     fireworks.start();
 
                     const cardObj = document.getElementById('invitation-card');
