@@ -916,14 +916,14 @@
         // Xử lý nút Mute / Unmute
         muteBtn.addEventListener('click', () => {
             const muteText = document.getElementById('mute-text');
-            if (audio.muted) {
-                audio.muted = false;
+            if (audio.paused) {
+                audio.play();
                 iconMute.classList.add('hidden');
                 iconUnmute.classList.remove('hidden');
                 muteText.textContent = 'Tắt Nhạc';
                 muteText.classList.replace('text-slate-500', 'text-[#8c6200]');
             } else {
-                audio.muted = true;
+                audio.pause();
                 iconMute.classList.remove('hidden');
                 iconUnmute.classList.add('hidden');
                 muteText.textContent = 'Bật Nhạc';
