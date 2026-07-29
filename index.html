@@ -45,6 +45,16 @@
             --color-cream: #fdfbf7;
         }
 
+        html, body {
+            /* Ẩn thanh cuộn để chống giật khung hình */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            display: none;
+        }
+
         body {
             /* Nền Sáng: Lễ Tốt Nghiệp với lớp overlay trắng/kem sang trọng */
             background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(255, 255, 255, 0.95)),
@@ -93,7 +103,7 @@
             background: linear-gradient(-45deg, rgba(var(--star-color), 1), rgba(var(--star-color), 0));
             border-radius: 999px;
             filter: drop-shadow(0 0 8px rgba(var(--star-color), 0.8));
-            animation: tail 4s ease-in-out infinite, shooting 4s ease-in-out infinite;
+            animation: tail 6s ease-in-out infinite, shooting 6s ease-in-out infinite;
         }
 
         .shooting-star::before,
@@ -105,7 +115,7 @@
             height: 2px;
             background: linear-gradient(-45deg, rgba(var(--star-color), 0), rgba(var(--star-color), 1), rgba(var(--star-color), 0));
             border-radius: 100%;
-            animation: shining 4s ease-in-out infinite;
+            animation: shining 6s ease-in-out infinite;
         }
 
         .shooting-star::before {
@@ -146,19 +156,23 @@
 
         @keyframes shooting {
             0% {
-                transform: rotate(45deg) translateX(-100px);
+                transform: rotate(20deg) translateX(-100px);
+                opacity: 1;
+            }
+
+            70% {
                 opacity: 1;
             }
 
             100% {
-                transform: rotate(45deg) translateX(1200px);
+                transform: rotate(20deg) translateX(3000px);
                 opacity: 0;
             }
         }
 
         .star-1 {
             top: 5%;
-            left: 10%;
+            left: -10%;
             animation-delay: 0s;
             --star-color: 212, 175, 55;
         }
@@ -166,15 +180,15 @@
         /* Gold */
         .star-2 {
             top: 25%;
-            left: -10%;
+            left: -20%;
             animation-delay: 2.2s;
             --star-color: 255, 10, 84;
         }
 
         /* Pink/Red */
         .star-3 {
-            top: -10%;
-            left: 40%;
+            top: 10%;
+            left: -15%;
             animation-delay: 4.5s;
             --star-color: 0, 255, 255;
         }
@@ -182,15 +196,15 @@
         /* Cyan */
         .star-4 {
             top: 40%;
-            left: -20%;
+            left: -25%;
             animation-delay: 1.5s;
             --star-color: 148, 0, 211;
         }
 
         /* Purple */
         .star-5 {
-            top: -20%;
-            left: 70%;
+            top: 0%;
+            left: -5%;
             animation-delay: 3.8s;
             --star-color: 255, 255, 255;
         }
@@ -558,6 +572,28 @@
         #monkey-left:hover {
             transform: scale(1.1) rotate(-12deg);
         }
+
+        @keyframes spin-vinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .record-spin {
+            animation: spin-vinyl 3s linear infinite;
+        }
+
+        .vinyl-pause .record-spin {
+            animation-play-state: paused;
+        }
+
+        .tonearm {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: rotate(0deg);
+        }
+
+        .vinyl-pause .tonearm {
+            transform: rotate(-25deg);
+        }
     </style>
 </head>
 
@@ -687,28 +723,85 @@
 
     <div class="fireworks-container"></div>
 
-    <!-- Nút Bật/Tắt Âm Thanh -->
-    <button id="mute-btn"
-        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white/90 px-5 py-3.5 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.2)] hover:bg-white hover:scale-105 transition-all duration-300 hidden border border-[#d4af37]/30">
-        <svg id="icon-unmute" class="w-5 h-5 text-[#8c6200]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 14h3.586a2 2 0 001.414-.586l4-4v6.172l-4-4A2 2 0 008.586 10H5v4z">
-            </path>
-        </svg>
-        <svg id="icon-mute" class="w-5 h-5 text-slate-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z">
-            </path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
-        </svg>
-        <span id="mute-text" class="font-sans font-bold text-[0.7rem] text-[#8c6200] tracking-wider uppercase">Tắt
-            Nhạc</span>
-    </button>
+    <!-- Wrapper to align button with card's bottom edge without tilting -->
+    <div id="card-wrapper" class="relative w-full max-w-[950px] mx-auto flex justify-center items-center">
+        <!-- Nút Bật/Tắt Nhạc: Thiết kế hình Máy Phát Đĩa Than -->
+        <button id="mute-btn"
+            class="absolute bottom-0 right-0 sm:right-[-40px] md:right-[-100px] lg:right-[-110px] xl:right-[-120px] z-50 flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-white rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:scale-110 transition-all duration-300 hidden border border-[#d4af37]/40"
+            title="Bật/Tắt Nhạc">
+            <svg id="vinyl-icon" class="w-full h-full p-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Khung máy phát (Plinth) -->
+                <rect x="0" y="0" width="100" height="100" rx="20" fill="#fdfbf7" />
+                <rect x="5" y="5" width="90" height="90" rx="15" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-opacity="0.6" />
+                
+                <!-- Phần đĩa than (record-spin) quay -->
+                <g class="record-spin" style="transform-origin: 46px 50px;">
+                    <!-- Rãnh đĩa -->
+                    <circle cx="46" cy="50" r="34" fill="#1e293b" />
+                    <circle cx="46" cy="50" r="28" fill="none" stroke="#334155" stroke-width="1.5" />
+                    <circle cx="46" cy="50" r="22" fill="none" stroke="#334155" stroke-width="1.5" />
+                    <circle cx="46" cy="50" r="16" fill="none" stroke="#334155" stroke-width="1.5" />
+                    
+                    <!-- Nhãn đĩa nền kem hồng nhạt -->
+                    <circle cx="46" cy="50" r="12" fill="#fff5f7" />
+                    <circle cx="46" cy="50" r="12" fill="none" stroke="#fda4af" stroke-width="0.5" />
+                    
+                    <!-- Hoa đào 5 cánh -->
+                    <g fill="#f9a8d4">
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(0 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(72 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(144 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(216 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(288 46 50)" />
+                    </g>
+                    <!-- Điểm nhấn giữa cánh (tạo độ sâu màu hồng đậm) -->
+                    <g fill="#f43f5e">
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(0 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(72 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(144 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(216 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(288 46 50)" />
+                    </g>
 
-    <div id="invitation-card" class="invitation-card animate-fade-up hidden relative" data-tilt data-tilt-max="8"
-        data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3" data-tilt-scale="1.04"
-        style="animation-duration: 1.5s;">
+                    <!-- Nhụy hoa vàng -->
+                    <circle cx="46" cy="50" r="3" fill="#fde047" />
+                    
+                    <!-- Trục xoay (Spindle) bằng kim loại -->
+                    <circle cx="46" cy="50" r="1.5" fill="#cbd5e1" />
+                    <circle cx="45.5" cy="49.5" r="0.5" fill="#ffffff" />
+                </g>
+
+                <!-- Ánh sáng phản chiếu (Cố định, đè lên đĩa đang quay) -->
+                <g class="record-highlights">
+                    <path d="M 46 16 A 34 34 0 0 1 80 50" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round" />
+                    <path d="M 46 84 A 34 34 0 0 1 12 50" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round" />
+                </g>
+                
+                <!-- Nút vặn điều khiển -->
+                <circle cx="85" cy="82" r="5" fill="#94a3b8" />
+                <circle cx="85" cy="82" r="2" fill="#cbd5e1" />
+                <circle cx="85" cy="68" r="3.5" fill="#94a3b8" />
+                
+                <!-- Cần gạt (Tonearm) -->
+                <g class="tonearm" style="transform-origin: 84px 18px;">
+                    <!-- Đối trọng -->
+                    <rect x="81" y="4" width="6" height="8" rx="2" fill="#94a3b8" transform="rotate(35 84 8)" />
+                    <!-- Cần gạt thẳng -->
+                    <path d="M 84 18 L 69 58" fill="none" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round" />
+                    <!-- Đầu kim -->
+                    <path d="M 70.5 59 L 66.5 65 L 63.5 63 L 67.5 57 Z" fill="#64748b" />
+                    <circle cx="65" cy="64" r="1.5" fill="#ef4444" />
+                    <!-- Trục xoay -->
+                    <circle cx="84" cy="18" r="8" fill="#1e293b" />
+                    <circle cx="84" cy="18" r="5" fill="#d4af37" />
+                    <circle cx="84" cy="18" r="2" fill="#fdfbf7" />
+                </g>
+            </svg>
+        </button>
+
+        <div id="invitation-card" class="invitation-card animate-fade-up hidden relative" data-tilt data-tilt-max="8"
+            data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3" data-tilt-scale="1.04"
+            style="animation-duration: 1.5s;">
 
         <!-- ================= LEFT PANEL (Light) ================= -->
         <div class="left-panel w-full md:w-[45%] p-10 md:p-12 pop-out">
@@ -841,15 +934,15 @@
                     class="flex flex-col items-center relative z-10 border-b md:border-b-0 md:border-r border-[#d4af37]/30 pb-4 md:pb-0 md:pr-2">
                     <span
                         class="text-[#8c6200] font-sans font-bold text-[0.65rem] uppercase tracking-[0.2em] mb-2">When</span>
-                    <span class="font-serif text-slate-800 text-[1.1rem] font-semibold">Sat, 27.06.2026</span>
-                    <span class="font-serif text-slate-600 text-[0.95rem] italic font-medium mt-0.5">2:00 PM - 4:30
-                        PM</span>
+                    <span class="font-serif text-slate-800 text-[1rem] font-semibold leading-tight lining-nums">Fri, 28.08.2026</span>
+                    <span
+                        class="font-sans text-slate-600 text-[0.75rem] font-medium mt-1.5 text-center leading-relaxed">2:00 PM - 4:30 PM</span>
                 </div>
 
                 <div class="flex flex-col items-center relative z-10 pt-2 md:pt-0 md:pl-2">
                     <span
                         class="text-[#8c6200] font-sans font-bold text-[0.65rem] uppercase tracking-[0.2em] mb-2">Where</span>
-                    <span class="font-serif text-slate-800 text-[1rem] font-semibold leading-tight">HCMUTE</span>
+                    <span class="font-serif text-slate-800 text-[1rem] font-semibold leading-tight lining-nums">HCM-UTE</span>
                     <span
                         class="font-sans text-slate-600 text-[0.75rem] font-medium mt-1.5 text-center leading-relaxed">Số
                         1 Võ Văn Ngân<br>TP. Thủ Đức, TP.HCM</span>
@@ -871,7 +964,7 @@
                 <p class="font-serif italic text-slate-500 text-[1.1rem] mb-2 tracking-wide">RSVP / Liên hệ</p>
                 <div class="flex flex-wrap justify-center gap-3">
                     <span
-                        class="font-serif text-[#8c6200] text-[1.1rem] hover:scale-105 transition-transform duration-300 cursor-pointer copy-phone drop-shadow-sm"
+                        class="font-serif lining-nums text-[#8c6200] text-[1.1rem] hover:scale-105 transition-transform duration-300 cursor-pointer copy-phone drop-shadow-sm"
                         data-phone="0763866972" title="Nhấn để copy số">076 386 6972 (An)</span>
                 </div>
                 <!-- Thông báo copy -->
@@ -881,6 +974,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script>
@@ -910,24 +1004,16 @@
 
         const audio = document.getElementById('bg-music');
         const muteBtn = document.getElementById('mute-btn');
-        const iconMute = document.getElementById('icon-mute');
-        const iconUnmute = document.getElementById('icon-unmute');
+        const vinylIcon = document.getElementById('vinyl-icon');
 
         // Xử lý nút Mute / Unmute
         muteBtn.addEventListener('click', () => {
-            const muteText = document.getElementById('mute-text');
             if (audio.paused) {
                 audio.play();
-                iconMute.classList.add('hidden');
-                iconUnmute.classList.remove('hidden');
-                muteText.textContent = 'Tắt Nhạc';
-                muteText.classList.replace('text-slate-500', 'text-[#8c6200]');
+                vinylIcon.classList.remove('vinyl-pause');
             } else {
                 audio.pause();
-                iconMute.classList.remove('hidden');
-                iconUnmute.classList.add('hidden');
-                muteText.textContent = 'Bật Nhạc';
-                muteText.classList.replace('text-[#8c6200]', 'text-slate-500');
+                vinylIcon.classList.add('vinyl-pause');
             }
         });
 
