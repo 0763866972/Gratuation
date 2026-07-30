@@ -581,8 +581,20 @@
             animation: spin-vinyl 3s linear infinite;
         }
 
-        .vinyl-pause .record-spin {
+        .galaxy-spin {
+            transform-origin: 46px 50px;
+            animation: spin-vinyl 20s linear infinite;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .vinyl-pause .record-spin,
+        .vinyl-pause .galaxy-spin {
             animation-play-state: paused;
+        }
+        
+        .vinyl-pause .galaxy-spin {
+            opacity: 0;
         }
 
         .tonearm {
@@ -743,38 +755,29 @@
                     
 
 
-                    <!-- Nhãn đĩa nền kem vàng nhạt -->
-                    <circle cx="46" cy="50" r="12" fill="#fffdf5" />
-                    <circle cx="46" cy="50" r="12" fill="none" stroke="#fcd34d" stroke-width="0.5" />
+                    <!-- Nhãn đĩa nền kem hồng nhạt -->
+                    <circle cx="46" cy="50" r="12" fill="#fff5f7" />
+                    <circle cx="46" cy="50" r="12" fill="none" stroke="#fda4af" stroke-width="0.5" />
                     
-                    <!-- Hoa hướng dương -->
-                    <!-- Cánh hoa lớp dưới (Màu cam) -->
-                    <g fill="#fbbf24">
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(22.5 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(67.5 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(112.5 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(157.5 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(202.5 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(247.5 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(292.5 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.5" ry="5" transform="rotate(337.5 46 50)" />
+                    <!-- Hoa đào 5 cánh -->
+                    <g fill="#f9a8d4">
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(0 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(72 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(144 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(216 46 50)" />
+                        <circle cx="46" cy="44.5" r="4" transform="rotate(288 46 50)" />
                     </g>
-                    <!-- Cánh hoa lớp trên (Màu vàng sáng) -->
-                    <g fill="#fde047">
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(0 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(45 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(90 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(135 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(180 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(225 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(270 46 50)" />
-                        <ellipse cx="46" cy="43" rx="2.2" ry="5.5" transform="rotate(315 46 50)" />
+                    <!-- Điểm nhấn giữa cánh (tạo độ sâu màu hồng đậm) -->
+                    <g fill="#f43f5e">
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(0 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(72 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(144 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(216 46 50)" />
+                        <circle cx="46" cy="47.5" r="1.5" transform="rotate(288 46 50)" />
                     </g>
-                    
-                    <!-- Nhụy hoa hướng dương (Màu nâu) -->
-                    <circle cx="46" cy="50" r="4.5" fill="#78350f" />
-                    <!-- Chi tiết hạt nhụy -->
-                    <circle cx="46" cy="50" r="3" fill="#92400e" stroke="#451a03" stroke-width="0.5" stroke-dasharray="1 1" />
+
+                    <!-- Nhụy hoa vàng -->
+                    <circle cx="46" cy="50" r="3" fill="#fde047" />
                     
                     <!-- Trục xoay (Spindle) bằng kim loại -->
                     <circle cx="46" cy="50" r="1.5" fill="#cbd5e1" />
@@ -782,7 +785,7 @@
                 </g>
 
                 <!-- Dải ngân hà quay quanh mặt trời (Quay chậm độc lập với đĩa) -->
-                <g style="transform-origin: 46px 50px; animation: spin-vinyl 20s linear infinite;">
+                <g class="galaxy-spin">
                     <g class="vinyl-sparkles">
                         <!-- Dải ngân hà 1 (Spiral Arm 1) -->
                         <path d="M 61 47 L 61.8 49.2 L 64 50 L 61.8 50.8 L 61 53 L 60.2 50.8 L 58 50 L 60.2 49.2 Z" fill="#d4af37">
@@ -1324,7 +1327,7 @@
             });
         });
 
-        // 5. Click Avatar tung hoa hướng dương (🌻)
+        // 5. Click Avatar tung hoa anh đào (🌸)
         const avatarIcon = document.getElementById('avatar-icon');
         if (avatarIcon) {
             avatarIcon.addEventListener('click', function() {
@@ -1336,7 +1339,7 @@
                 setTimeout(() => { this.style.transform = ''; }, 300);
 
                 try {
-                    const flowerShape = confetti.shapeFromText({ text: '🌻', scalar: 3 });
+                    const flowerShape = confetti.shapeFromText({ text: '🌸', scalar: 3 });
                     confetti({
                         particleCount: 25,
                         spread: 100,
@@ -1351,7 +1354,7 @@
                         particleCount: 40,
                         spread: 100,
                         origin: { x: x, y: y },
-                        colors: ['#fcd34d', '#fbbf24', '#78350f'],
+                        colors: ['#ffb7c5', '#ff9eaf', '#ffffff'],
                         zIndex: 100
                     });
                 }
