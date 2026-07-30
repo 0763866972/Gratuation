@@ -755,20 +755,20 @@
                     
 
 
-                    <!-- Nhãn đĩa nền kem hồng nhạt -->
-                    <circle cx="46" cy="50" r="12" fill="#fff5f7" />
-                    <circle cx="46" cy="50" r="12" fill="none" stroke="#fda4af" stroke-width="0.5" />
+                    <!-- Nhãn đĩa nền xanh dương/teal -->
+                    <circle cx="46" cy="50" r="12" fill="#5bc5c5" />
+                    <circle cx="46" cy="50" r="12" fill="none" stroke="#fde047" stroke-width="0.5" />
                     
-                    <!-- Hoa đào 5 cánh -->
-                    <g fill="#f9a8d4">
+                    <!-- Hoa mai 5 cánh -->
+                    <g fill="#fde047">
                         <circle cx="46" cy="44.5" r="4" transform="rotate(0 46 50)" />
                         <circle cx="46" cy="44.5" r="4" transform="rotate(72 46 50)" />
                         <circle cx="46" cy="44.5" r="4" transform="rotate(144 46 50)" />
                         <circle cx="46" cy="44.5" r="4" transform="rotate(216 46 50)" />
                         <circle cx="46" cy="44.5" r="4" transform="rotate(288 46 50)" />
                     </g>
-                    <!-- Điểm nhấn giữa cánh (tạo độ sâu màu hồng đậm) -->
-                    <g fill="#f43f5e">
+                    <!-- Điểm nhấn giữa cánh (tạo độ sâu màu cam) -->
+                    <g fill="#f59e0b">
                         <circle cx="46" cy="47.5" r="1.5" transform="rotate(0 46 50)" />
                         <circle cx="46" cy="47.5" r="1.5" transform="rotate(72 46 50)" />
                         <circle cx="46" cy="47.5" r="1.5" transform="rotate(144 46 50)" />
@@ -776,8 +776,8 @@
                         <circle cx="46" cy="47.5" r="1.5" transform="rotate(288 46 50)" />
                     </g>
 
-                    <!-- Nhụy hoa vàng -->
-                    <circle cx="46" cy="50" r="3" fill="#fde047" />
+                    <!-- Nhụy hoa cam đỏ -->
+                    <circle cx="46" cy="50" r="3" fill="#ea580c" />
                     
                     <!-- Trục xoay (Spindle) bằng kim loại -->
                     <circle cx="46" cy="50" r="1.5" fill="#cbd5e1" />
@@ -1327,7 +1327,7 @@
             });
         });
 
-        // 5. Click Avatar tung hoa anh đào (🌸)
+        // 5. Click Avatar tung hoa mai (🌼)
         const avatarIcon = document.getElementById('avatar-icon');
         if (avatarIcon) {
             avatarIcon.addEventListener('click', function() {
@@ -1339,7 +1339,7 @@
                 setTimeout(() => { this.style.transform = ''; }, 300);
 
                 try {
-                    const flowerShape = confetti.shapeFromText({ text: '🌸', scalar: 3 });
+                    const flowerShape = confetti.shapeFromText({ text: '🌼', scalar: 3 });
                     confetti({
                         particleCount: 25,
                         spread: 100,
@@ -1354,7 +1354,7 @@
                         particleCount: 40,
                         spread: 100,
                         origin: { x: x, y: y },
-                        colors: ['#ffb7c5', '#ff9eaf', '#ffffff'],
+                        colors: ['#fde047', '#f59e0b', '#ffffff'],
                         zIndex: 100
                     });
                 }
